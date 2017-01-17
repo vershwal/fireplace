@@ -3,7 +3,15 @@ define('nav', ['core/capabilities', 'core/log', 'core/navigation', 'core/views',
     'use strict';
 
     var logger = log('nav');
-
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27) {
+            if($("a.nav-category-link.header-nav-link-active").length > 0) {
+                $("a.nav-category-link.header-nav-link-active")[0].click()
+            } else if ($("a.mkt-search-btn.search-btn-desktop.header-nav-link-active").length > 0) {
+                z.page.trigger('clearsearch');
+            }
+        }
+    });
     // Search.
     z.page.on('showsearch', function(e, args) {
         args = args || {};
@@ -220,13 +228,7 @@ define('nav', ['core/capabilities', 'core/log', 'core/navigation', 'core/views',
                 setTimeout(initLegacyOverlays, 500);
             }
         };
-        $(document).keyup(function(e) {
-            if (e.keyCode == 27) {
-                if($("a.nav-category-link.header-nav-link-active").length > 0) {
-                    $("a.nav-category-link.header-nav-link-active")[0].click()
-                }
-            }
-        });
+
 
         initLegacyOverlays();
     }
